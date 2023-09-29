@@ -1,0 +1,36 @@
+
+summary_prompt = f"Please provide a summary of the resume with the following resumeId {resumeid_num}. The response should be in JSON format and include the following keys:\n\n```json\n{{\n\"name\": \"\",\n\"Title/Role\": \"\",\n\"Skills\": [],\n\"Technical Skills\": [],\n\"experience\": \"\",\n\"background\": \"\"\n}}\n```\n\nThe data should be extracted from the resume content:\n\n```\n{parsed_data[resumeid_num]}\n```\n\nIf the provided resumeId is not found, please return None."   
+
+Read_me - Input Parameters: resumeid_num (string): This parameter represents the unique resume ID, serving as a reference for retrieving and summarizing the respective resume.
+JSON Format: The JSON format is chosen to ensure structured data organization. Each key within the JSON response serves a distinct purpose. For instance: name is expected to contain the name of the individual. Skills should include a list of skills possessed by the person. experience is meant for detailing the candidate's work experience.
+Data Extraction: To guide the developer in data extraction, the prompt includes a placeholder indicating where the information should be sourced. It specifies that "data should be extracted from the resume content." This directs the developer to access the relevant resume data within the parsed_data dictionary, making it clear where to retrieve the necessary information for the summary.
+Thought Process: The thought process behind this prompt is to create a standardized approach for summarizing resumes. By specifying the required keys and JSON format, it ensures that the resulting summary is both informative and easy to process programmatically. The use of JSON provides a structured response that can be seamlessly integrated into various applications. 
+
+
+
+similar_resume_prompt = f"Compare the following resumes:\n\n1. {parsed_data[resumeid_num]}\n\n2. {resume_content} and determine the most similar one. Provide the reason for this decision by highlighting common skills and their details of {resumeid_num} and the details of most similaresume. Response should be in the following JSON format:\n\n{{\n\t\"isSimilar\": bool,\n\t\"reason\": {{}}\n}}"
+
+Read Me-  Input Parameters: input_resume (string): This parameter represents the unique resume ID of the input resume that serves as a reference for the comparison.
+resume_content (string): This is a truncated version of another resume's content that will be compared to the input_resume.
+get_Resume_Summary_ById(input_resume) (function): This function retrieves the summary of the input_resume. It is included to assist in generating the reason for the decision.
+JSON Format:The JSON format is chosen for the response to ensure structured data organization. The response contains two key-value pairs:
+isSimilar (bool): This key holds a boolean value indicating whether the compared resume is similar to the input_resume. It provides a straightforward answer to the similarity question.
+reason (dictionary): The reason key holds a dictionary that serves as the explanation for the decision. This dictionary can take any format chosen by the developer.
+Determining Similarity:The primary criterion for determining similarity is the comparison of skills between the input_resume and the truncated resume_content. The specific method used for comparing skills and their details is left to the developer's discretion and can be customized as needed.
+Thought Process:The thought process behind this prompt is to create a standardized approach for comparing resumes based on skills. It provides a clear JSON structure for the response, making it easy for to understand and work with the output. Additionally, I Used get_Resume_Summary_ById function in the the prompt to compare the extracted summary, so that model can provide a better reason and details of the similar keywords. But then removed it to maintain the modularity of code.
+
+
+
+resume_byskills_prompt = f"Search for resumes with skills: {','.join(input_skills)}. Analyze the following resumes for skill matching:\n{resume_content}. and return 3 most relevent resumes with the skills and the comparison of their {input_skills} skills "
+
+Read me- Input Parameters: input_skills (list of strings): This parameter represents the skills to be searched for in the resumes. It is provided as a list of strings.
+resume_content (string): This is the content of a resume that will be analyzed to determine if it matches the provided skills.
+Output Format:The output should be structured to provide information about the three most relevant resumes. The format chosen for the response is a dictionary. The response includes two key-value pairs:
+areSimilar (boolean): This key holds a boolean value indicating whether any resumes were found that match the provided skills. If no matching resumes are found, this value will be False.
+mostSimilarResumeIds (list of strings): This key holds a list of resume IDs that are the most relevant and match the provided skills.
+Determining Relevance:The relevance of resumes is determined based on the presence of skills in the ‘resume_content’. The function should prioritize resumes that contain the highest number of matching skills.
+Thought Process:The thought process behind this prompt is to create a function that efficiently identifies and ranks resumes based on their relevance to the provided skills. It encourages developers to think about data extraction from resumes and how to determine the most relevant resumes.
+Additionally, this prompt promotes structured output in the form of a dictionary to facilitate easy handling of the results. It also highlights the importance of considering scenarios where no matching resumes are found.
+
+
+

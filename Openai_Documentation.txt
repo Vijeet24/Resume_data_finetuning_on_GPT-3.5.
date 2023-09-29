@@ -1,0 +1,89 @@
+Solution Structure and Explanation: - 
+
+Resume Parsing: -
+To achieve the task of parsing multiple resume files, extracting data, and employing the filenames as distinctive identifiers (resume IDs), the following approach was employed:
+Download and Unzip the Resume Dataset -The process commenced by downloading the resume dataset zip file via the "wget" command. The provided URL was utilized for this purpose: wget https://storage.googleapis.com/ds--tasks-datasets/resume-dataset.zip.
+Subsequently, the downloaded dataset was unzipped utilizing the "unzip" command: unzip resume-dataset.zip.
+Parse Multiple Resume Files- Following the successful unzipping of the dataset, it was observed that it encompassed a multitude of resume files, each bearing the nomenclature "resume-<id>.txt" (e.g., "resume-1," "resume-2," and so forth). To systematically extract the requisite information from each resume, a Python script was devised. This script meticulously navigated through the files, reading the content of each resume file, and leveraging techniques like regular expressions or other parsing methodologies to extract details such as skills, educational background, and other data points. For each individual resume, the filename served as a unique identifier, christened the "resumeId."
+Data Extraction and Storage: A dedicated function, "parse_resume(file_path)," was used to extract data for each individual resume file. This function functioned by reading the content of the file, applying tailored parsing logic to get relevant data, and subsequently encapsulating the extracted information within a dictionary format. 
+Results-Following the comprehensive processing of all the resume files, the outcome was a compilation of dictionaries. Each dictionary corresponded to a parsed resume, encapsulating both the "resumeId" (derived from the file name) and additional extracted text data related to skills, educational background, and other details.
+The parsed data was subsequently amenable to further processing, contingent on the specific requirements or objectives of the task at hand.
+This methodological approach facilitated the successful execution of the task at hand, encompassing the parsing of numerous resume files, the extraction of data, and the utilization of filenames as distinct identifiers (resume IDs).
+
+
+getResumeSummaryById(resumeId: str):
+To achieve the task of summarizing resumes based on their unique resume IDs, I implemented the following approach-
+Resume Summary Generation-The core function, named "getResumeSummaryById(resumeid_num), " was designed to generate concise summaries for specific resumes using their respective resume IDs.
+Prompt for Summarization- A customized prompt was constructed for the GPT-3 engine. This prompt included the specific text chunk to be summarized and provided guidance to the model on the desired format of the summary. The model was instructed to produce a JSON-formatted response with keys such as "name," "Title/Role," "Skills," "Technical Skills," "experience," and "background."
+Response Generation-Using the prompt, the function invoked the GPT engine'gpt-3.5-turbo-instruct' to generate a summary. The "max_tokens" parameter was set to control the length of the summary, ensuring it remained concise.
+Final Summary-After processing all text chunks, the function combined the individual summaries into a single coherent summary by joining the output chunks.
+Result-The result was a well-structured and JSON-formatted summary of the resume, including key details such as the individual's name, title/role, skills, technical skills, experience, and background. This automated summarization process allowed for efficient extraction of essential information from resumes based on their unique resume IDs.
+This approach enabled the systematic and efficient generation of resume summaries, providing a structured overview of key information for each resume based on its.
+
+
+getSimilarResume(resume: str)::-
+To accomplish the task of identifying the most similar resume to a target resume (designated by its resume ID) within a given dictionary of resumes, the following systematic approach was employed:
+Finding the Most Similar Resume-Definition of Parameters: The process commenced by defining the specific parameters and configurations required for this task. The GPT engine chosen for this purpose was "gpt-3.5-turbo-instruct."
+Variable Initialization- Key variables were initialized to capture and store essential information. These variables included "most_similar_resume" to hold the resume ID of the most similar resume, and "comparison_text" to store the textual comparison result.
+Iterative Comparison-A loop was implemented to iterate through each resume in the provided dictionary. For each iteration, the process checked whether the current resume matched the input target resume (indicated by the same resume ID). If a match was found, the comparison was skipped, ensuring the target resume was not compared to itself.
+Comparison Prompt-The heart of the comparison process was the construction of a well-defined prompt for the GPT-3 model. This prompt included the content of the target resume (retrieved from the dictionary) and a portion of the content of the current resume (the first 18 characters in this case). The GPT-3 model was instructed to compare these two resumes.
+Comparison Result Generation-Utilizing the specified GPT-3 engine and prompt, a comparison result was generated. This result represented the model's assessment of the similarity between the target resume and the current resume. The "max_tokens" parameter was adjusted as needed to control the length of the response.
+Comparison Text Extraction-The response from the GPT-3 model was parsed to extract the comparison text. This text represented the model's judgment of the similarity between the two resumes.
+Comparison Evaluation- The obtained comparison text was evaluated to determine if it indicated a significant degree of similarity between the two resumes. If the comparison result was not empty, it was considered as a valid comparison result, and the respective resume ID was recorded as the "most_similar_resume." This comparison result was then stored as "comparison_text."
+JSON Response Creation- Based on the outcome of the comparison, a structured JSON response was created. This response included fields such as "isSimilar" (indicating whether the resumes were similar), "mostSimilarResumeId" (the resume ID of the most similar resume), and "comparisonText" (the textual comparison result).
+Result-The result was a JSON-formatted response that conveyed whether the target resume was similar to any other resumes in the provided dictionary. This response also included the resume ID of the most similar resume and the textual comparison result.
+This approach facilitated the systematic comparison of a target resume with other resumes in the dictionary, allowing for the identification of the most similar resume based on textual analysis.
+
+
+Resumes by Skills:-
+To tackle the task of searching for resumes that match specific skills and analyzing their content, while considering the provided resume dictionary, the following structured approach was employed: Searching for Resumes by Skills-Engine and Parameters Definition: The process commenced with the definition of crucial parameters. Specifically, the GPT engine designated for this task was "gpt-3.5-turbo-instruct."
+Variable Initialization- Several variables were initialized to capture and retain essential information throughout the process. These variables included "most_similar_resumes" to store the resume IDs of the most similar resumes, and "comparison_texts" to capture the textual comparison results.
+Iterative Comparison- A loop was implemented to systematically iterate through each resume in the provided dictionary. For each iteration, a specific prompt was formulated. This prompt incorporated the target skills specified for the search and the content of the current resume being examined.
+Comparison Prompt Construction- The heart of the comparison process was the construction of a well-defined prompt for the GPT-3 model. This prompt effectively instructed the model to search for resumes with the specified skills and analyze the content of the current resume. It encapsulated both the input skills and the resume content within the prompt.
+Comparison Result Generation- Employing the designated GPT-3 engine and the crafted prompt, a comparison result was generated. The "max_tokens" parameter was adjusted as required to regulate the length of the response.
+Comparison Text Extraction- Following the generation of the comparison result, the response from the GPT-3 model was parsed to extract the relevant comparison text. This text represented the model's evaluation of the similarity between the specified skills and the content of the resume.
+Comparison Evaluation-The extracted comparison text underwent evaluation to determine its significance. If the comparison result was not empty, it was considered a valid comparison result. In such cases, the resume ID associated with the comparison and the textual comparison result were recorded.
+Top 3 Similar Resumes- To streamline the results and focus on the top matches, only the top 3 most similar resumes were retained. This was achieved by limiting the "most_similar_resumes" and "comparison_texts" lists to contain a maximum of three entries.
+JSON Response Creation-Based on the comparison outcomes, a structured JSON response was constructed. This response encompassed fields such as "areSimilar" (indicating whether any similar resumes were found), "mostSimilarResumeIds" (resume IDs of the most similar resumes), and "comparisonTexts" (textual comparison results).
+Result-The result was a JSON-formatted response that conveyed whether there were resumes in the provided dictionary that matched the specified skills. If similar resumes were found, the response included their resume IDs and the textual comparison results.
+This approach facilitated the systematic search for resumes based on specific skills and the analysis of their content, allowing for the identification of the top 3 most similar resumes.
+
+
+
+Instructions on how to run your code.
+here's a structured text explanation with execution commands for the provided Python code snippets:
+
+Step 1: Parsing Resumes
+To parse resumes located in a specified folder and extract relevant data, use the following code snippet:
+# Execute the parsing resumes function with the resume folder path
+resume_folder = "/path/to/resume/folder"
+parsed_data = parse_resumes(resume_folder)
+
+Step 2: Generating Resume Summaries
+To generate a summary for a specific resume by providing its resume ID, utilize the following code 
+snippet:
+# Execute the getResumeSummaryById function with the desired resume ID
+resume_id = "1"  # Replace with the desired resume ID
+summary = getResumeSummaryById(resume_id)
+
+Step 3: Finding Similar Resumes
+To find resumes similar to a target resume based on content comparison, execute the following code:
+# Define the target resume ID
+target_resume_id = "1” # Replace with the ID of the target resume
+# Execute the getSimilarResume function with the target resume ID and parsed data
+result = getSimilarResume(target_resume_id, parsed_data)
+
+Step 4: Searching for Resumes by Skills
+To search for resumes that match specific skills, run the following code:
+# Define the target skills to search for
+target_skills = ["Software developer", "Java Developer"]  # Use the skills you want to search for
+# Execute the get_Resume_byskill function with the target skills and parsed data
+result = get_Resume_byskill(target_skills, parsed_data)
+These execution commands correspond to the respective code snippets and perform tasks such as parsing resumes, generating summaries, finding similar resumes, and searching for resumes by skills
+
+
+Assumption: -
+During the challenge, I made the following assumption and decisions:
+Assumption: I assumed that all the keys, namely "name," "Title/Role," "Skills," "Technical Skills," "experience," and "background," are already available in the given resumes.
+Justification: By assuming the presence of these keys, I could design and implement the code more efficiently to parse and extract data from the resumes accurately. This assumption streamlined the development process and aligned with the context of the challenge, where the focus was primarily on demonstrating the ability to work with resume data and utilize AI models for tasks like summarization and comparison.
+In real-world scenarios, resume data can vary significantly in structure and content. In practice, handling missing or inconsistent data would require additional data preprocessing and error handling techniques. However, for the purpose of this challenge, assuming the presence of these keys allowed for a more straightforward and focused implementation of the provided tasks.
