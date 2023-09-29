@@ -4,29 +4,29 @@ here's a structured text explanation with execution commands for the provided Py
 
 Step 1: Parsing Resumes
 To parse resumes located in a specified folder and extract relevant data, use the following code snippet:
-# Execute the parsing resumes function with the resume folder path
+Execute the parsing resumes function with the resume folder path
 resume_folder = "/path/to/resume/folder"
 parsed_data = parse_resumes(resume_folder)
 
 Step 2: Generating Resume Summaries
 To generate a summary for a specific resume by providing its resume ID, utilize the following code 
 snippet:
-# Execute the getResumeSummaryById function with the desired resume ID
+Execute the getResumeSummaryById function with the desired resume ID
 resume_id = "1"  # Replace with the desired resume ID
 summary = getResumeSummaryById(resume_id)
 
 Step 3: Finding Similar Resumes
 To find resumes similar to a target resume based on content comparison, execute the following code:
-# Define the target resume ID
+Define the target resume ID
 target_resume_id = "1” # Replace with the ID of the target resume
-# Execute the getSimilarResume function with the target resume ID and parsed data
+Execute the getSimilarResume function with the target resume ID and parsed data
 result = getSimilarResume(target_resume_id, parsed_data)
 
 Step 4: Searching for Resumes by Skills
 To search for resumes that match specific skills, run the following code:
-# Define the target skills to search for
+Define the target skills to search for
 target_skills = ["Software developer", "Java Developer"]  # Use the skills you want to search for
-# Execute the get_Resume_byskill function with the target skills and parsed data
+Execute the get_Resume_byskill function with the target skills and parsed data
 result = get_Resume_byskill(target_skills, parsed_data)
 These execution commands correspond to the respective code snippets and perform tasks such as parsing resumes, generating summaries, finding similar resumes, and searching for resumes by skills
 
